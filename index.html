@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<HMTL lang="en-us">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h1>Hangman</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <div class="row">
+                    <div class="col-sm-6 text-center">
+                        <p>This is one column</p>
+                    </div>
+                    <div class="col-sm-6 text-center">
+                        <p>This is one column</p>
+                        <div class="form-group">
+                            <label>Push Any Key To Get Started</label><br>
+                            <label for="numWins">Wins</label><br>
+                            <input type="text" class="form-control" id="numWins" readonly><br>
+                            <label for="currentWord">Current Word</label><br>
+                            <input type="text" class="form-control" id="currentWord" readonly><br>
+                            <label for="guessesRemaining">Number of Guesses Remaining</label><br>
+                            <input type="text" class="form-control" id="guessesRemaining" readonly><br>
+                            <label for="guessedLetters">Letters Already Guessed</label><br>
+                            <input type="text" class="form-control" id="guessedLetters" readonly><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="assets/javascript/game.js"></script>
+</body>
+</HTML>
