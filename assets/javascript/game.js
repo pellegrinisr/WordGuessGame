@@ -7,6 +7,9 @@
 //the same letter again.
 //the program will keep track of # of wins and # of games played.
 
+
+var indexArray = [];
+
 //object to represent word game
 var wordGame = {
     //properties
@@ -19,10 +22,12 @@ var wordGame = {
     myWord : '',
     numKeyPresses : 0,
     myUnderscores: '',
+    tempString : '',
+    newString : '',
     
     //methods
 
-    //this
+
     generateNewWord : function() {
         var myRand; 
 
@@ -45,8 +50,31 @@ var wordGame = {
                 wordGame.myUnderscores += '| ';
             }
         }
-        
         document.getElementById("currentWord").value = wordGame.myUnderscores;
+    }, 
+    
+    //this function will search through the word and if the guessed character is
+    //found it will update the displayed current word text box
+    searchWord : function() {
+
+        for (var i = 0; i < wordGame.myWord.length; i++) {
+            if (wordGame.myWord[i] === wordGame.currentLetterGuessed) {
+                wordGame.newString += wordGame.currentLetterGuessed
+            }
+            else if (wordGame.tempString.charCodeAt(i) >= 97 || wordGame.tempString.charCodeAt(i) <= 122) {
+                wordGame.newString += wordGame.tempString.charAt(i);
+            }
+            else if (wordGame.myUnderscores[i] === '|') {
+                wordGame.newString += '|';
+            }
+            else {
+                wordGame.newString += '_';
+            }
+            //word is venice
+            //        012345
+            //        ------
+        }
+        alert(wordGame.newString);
     }
 };
 
@@ -59,17 +87,26 @@ var wordGame = {
 document.onkeyup = function(ev) {
     var validChoice = false
     var letterFound = false;
+
+    
     var i = 0;
     var j = 0;
    
+    //check if first key press after page load/reload
     if (wordGame.numKeyPresses === 0) {
         wordGame.startPlay();
         wordGame.numKeyPresses++;
     }
+    //not the first key press since load/reload
     else {
+        //loop through array of letters until choice found
+        //or until it reaches the end of the array of letters.
         while (validChoice === false && i < wordGame.validLetters.length) {
             if (ev.key === wordGame.validLetters[i]) {
                 validChoice = true;
+                //if valid letter loop through array of previously guessed letters 
+                //until the letter is found or until it reaches the end of the array 
+                //of previously guessed letters
                 while (letterFound === false && j < wordGame.guessedLetters.length) {
                     if (ev.key === wordGame.guessedLetters[j]) {
                         letterFound = true;
@@ -78,17 +115,19 @@ document.onkeyup = function(ev) {
                         j++;
                     }
                 }
+                //key stroke was a valid alphabetic character and was not previously chosen
                 if (letterFound === false) {
                     alert('entered if statement');
                     wordGame.guessedLetters.push(ev.key);
                     wordGame.currentLetterGuessed = ev.key;
-                    //this is buggy as fuck
+                    document.getElementById("guessedLetters").value = wordGame.guessedLetters;
+                    
+                    //loop through word to search for instances of guessed letter
                     for (var i = 0; i < wordGame.myWord.length; i++) {
-                        if (wordGame.currentLetterGuessed == wordGame.myWord.charAt(i)) {
-                            //make the letter visible on the screen 
-                            wordGame.myUnderscores = wordGame.myUnderscores.substr(0, i) + wordGame.currentLetterGuessed + wordGame.myUnderscores.substr(i , wordGame.myUnderscores.length - 1);
-                            document.getElementById("currentWord").value = wordGame.myUnderscores;
+                        if (wordGame.currentLetterGuessed === wordGame.myWord[i]) {
+                            wordGame.searchWord();
                         }
+                        
                     }
                 }
             }
