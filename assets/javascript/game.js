@@ -13,7 +13,7 @@ var indexArray = [];
 //object to represent word game
 var wordGame = {
     //properties
-    numGuesses : 10,
+    numGuesses : 20,
     words : ["koreatown", "downtown", "silver lake", "echo park", "westwood", "macarthur park", "westwood", "los feliz", "venice", "marina del rey", "studio city", "century city", "mar vista", "sawtelle", "westchester", "playa del rey", "playa vista"],
     numWins : 0,
     validLetters : ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
@@ -21,10 +21,8 @@ var wordGame = {
     currentLetterGuessed : '',
     myWord : '',
     numKeyPresses : 0,
-    myUnderscores: '',
-    tempString : '',
-    newString : '',
-    
+    myUnderscoresArray: [],
+
     //methods
 
 
@@ -36,7 +34,6 @@ var wordGame = {
     },
 
     startPlay : function() {
-       alert("function called");
         //this function needs to be triggered on the first key press after page loads
 
         //get the new word
@@ -44,38 +41,48 @@ var wordGame = {
         //display the blank spaces
         for (var i = 0; i < wordGame.myWord.length; i++) {
             if(wordGame.myWord.charAt(i) !== ' ') {
-                wordGame.myUnderscores += '_ ';
+                wordGame.myUnderscoresArray[i] = '_';
             }
             else {
-                wordGame.myUnderscores += '| ';
+                wordGame.myUnderscoresArray[i] = '|';
             }
         }
-        document.getElementById("currentWord").value = wordGame.myUnderscores;
+        document.getElementById("currentWord").value = wordGame.myUnderscoresArray.toString().replace(/,/g, ' ');
+        document.getElementById("guessesRemaining").value = wordGame.numGuesses;
     }, 
-    
-    //this function will search through the word and if the guessed character is
-    //found it will update the displayed current word text box
-    searchWord : function() {
 
+    searchWord : function() {
         for (var i = 0; i < wordGame.myWord.length; i++) {
-            if (wordGame.myWord[i] === wordGame.currentLetterGuessed) {
-                wordGame.newString += wordGame.currentLetterGuessed
+            if (wordGame.currentLetterGuessed === wordGame.myWord[i]) {
+                wordGame.myUnderscoresArray[i] = wordGame.currentLetterGuessed;
             }
-            else if (wordGame.tempString.charCodeAt(i) >= 97 || wordGame.tempString.charCodeAt(i) <= 122) {
-                wordGame.newString += wordGame.tempString.charAt(i);
-            }
-            else if (wordGame.myUnderscores[i] === '|') {
-                wordGame.newString += '|';
+        }
+        document.getElementById("currentWord").value = wordGame.myUnderscoresArray.toString().replace(/,/g, ' ');
+
+    },
+
+    checkIfWon : function() {
+        var i = 0;
+        var isWinner = true;
+        while (i < wordGame.myUnderscoresArray.length && isWinner === true) {
+            if (wordGame.myUnderscoresArray[i] === '_') {
+                isWinner = false;
             }
             else {
-                wordGame.newString += '_';
+                i++;
             }
-            //word is venice
-            //        012345
-            //        ------
         }
-        alert(wordGame.newString);
-    }
+        if (isWinner === true) {
+            alert("congratulations");
+            wordGame.myUnderscoresArray = [];
+            wordGame.startPlay();
+            wordGame.numGuesses = 10;
+            document.getElementById("guessesRemaining").value = wordGame.numGuesses;
+            wordGame.guessedLetters = [];
+            document.getElementById("guessedLetters").value = wordGame.guessedLetters;
+            
+        }
+    } 
 };
 
 
@@ -117,15 +124,17 @@ document.onkeyup = function(ev) {
                 }
                 //key stroke was a valid alphabetic character and was not previously chosen
                 if (letterFound === false) {
-                    alert('entered if statement');
                     wordGame.guessedLetters.push(ev.key);
                     wordGame.currentLetterGuessed = ev.key;
                     document.getElementById("guessedLetters").value = wordGame.guessedLetters;
+                    wordGame.numGuesses--;
+                    document.getElementById("guessesRemaining").value = wordGame.numGuesses;
                     
                     //loop through word to search for instances of guessed letter
                     for (var i = 0; i < wordGame.myWord.length; i++) {
                         if (wordGame.currentLetterGuessed === wordGame.myWord[i]) {
                             wordGame.searchWord();
+                            wordGame.checkIfWon();
                         }
                         
                     }
