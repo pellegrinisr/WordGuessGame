@@ -11,14 +11,18 @@
 var wordGame = {
     //properties
     numGuesses : 10,
-    words : ["koreatown", "downtown", "silver lake", "echo park", "westwood", "mcarthur park", "westwood", "los feliz", "venice", "marina del rey", "studio city", "century city", "mar vista", "sawtelle", "westchester", "playa del rey", "playa vista"],
+    words : ["koreatown", "downtown", "silver lake", "echo park", "westwood", "macarthur park", "westwood", "los feliz", "venice", "marina del rey", "studio city", "century city", "mar vista", "sawtelle", "westchester", "playa del rey", "playa vista"],
     numWins : 0,
     validLetters : ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
     guessedLetters : [],
     currentLetterGuessed : '',
     myWord : '',
+    numKeyPresses : 0,
+    myUnderscores: '',
     
     //methods
+
+    //this
     generateNewWord : function() {
         var myRand; 
 
@@ -27,23 +31,22 @@ var wordGame = {
     },
 
     startPlay : function() {
+       alert("function called");
         //this function needs to be triggered on the first key press after page loads
 
-        var myUnderscores = '';
-        
         //get the new word
         this.generateNewWord();
         //display the blank spaces
         for (var i = 0; i < wordGame.myWord.length; i++) {
-            if(wordGame.myWord.charAt(i) !== '') {
-                myUnderscores += '_ ';
+            if(wordGame.myWord.charAt(i) !== ' ') {
+                wordGame.myUnderscores += '_ ';
             }
             else {
-                myUnderscores += '| ';
+                wordGame.myUnderscores += '| ';
             }
         }
-
-        document.getElementById("currentWord").value = myUnderscores;
+        
+        document.getElementById("currentWord").value = wordGame.myUnderscores;
     }
 };
 
@@ -59,29 +62,39 @@ document.onkeyup = function(ev) {
     var i = 0;
     var j = 0;
    
-    while (validChoice === false && i < wordGame.validLetters.length) {
-        if (ev.key === wordGame.validLetters[i]) {
-            validChoice = true;
-            while (letterFound === false && j < wordGame.guessedLetters.length) {
-                if (ev.key === wordGame.guessedLetters[j]) {
-                    letterFound = true;
+    if (wordGame.numKeyPresses === 0) {
+        wordGame.startPlay();
+        wordGame.numKeyPresses++;
+    }
+    else {
+        while (validChoice === false && i < wordGame.validLetters.length) {
+            if (ev.key === wordGame.validLetters[i]) {
+                validChoice = true;
+                while (letterFound === false && j < wordGame.guessedLetters.length) {
+                    if (ev.key === wordGame.guessedLetters[j]) {
+                        letterFound = true;
+                    }
+                    else {
+                        j++;
+                    }
                 }
-                else {
-                    j++;
-                }
-            }
-            if (letterFound === false) {
-                wordGame.guessedLetters.push(ev.key);
-                wordGame.currentLetterGuessed = ev.key;
-                for (var i = 0; i < wordGame.myWord.length; i++) {
-                    if (wordGame.currentLetterGuessed === wordGame.myWord[i]) {
-                        //make the letter visible on the screen 
+                if (letterFound === false) {
+                    alert('entered if statement');
+                    wordGame.guessedLetters.push(ev.key);
+                    wordGame.currentLetterGuessed = ev.key;
+                    //this is buggy as fuck
+                    for (var i = 0; i < wordGame.myWord.length; i++) {
+                        if (wordGame.currentLetterGuessed == wordGame.myWord.charAt(i)) {
+                            //make the letter visible on the screen 
+                            wordGame.myUnderscores = wordGame.myUnderscores.substr(0, i) + wordGame.currentLetterGuessed + wordGame.myUnderscores.substr(i , wordGame.myUnderscores.length - 1);
+                            document.getElementById("currentWord").value = wordGame.myUnderscores;
+                        }
                     }
                 }
             }
+            else {
+                i++;
+            }
         }
-        else {
-            i++;
-        }
-    }
+    } 
 }
