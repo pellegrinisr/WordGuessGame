@@ -13,8 +13,8 @@ var indexArray = [];
 //object to represent word game
 var wordGame = {
     //properties
-    numGuesses : 20,
-    words : ["koreatown", "downtown", "silver lake", "echo park", "westwood", "macarthur park", "westwood", "los feliz", "venice", "marina del rey", "studio city", "century city", "mar vista", "sawtelle", "westchester", "playa del rey", "playa vista"],
+    numGuesses : 15,
+    words : ["koreatown", "downtown", "silver lake", "echo park", "westwood", "macarthur park", "westwood", "los feliz", "venice", "marina del rey", "studio city", "century city", "mar vista", "sawtelle", "westchester", "playa del rey", "playa vista", "hollywood"],
     numWins : 0,
     validLetters : ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
     guessedLetters : [],
@@ -74,17 +74,19 @@ var wordGame = {
         }
         if (isWinner === true) {
             alert("congratulations");
-            wordGame.myUnderscoresArray = [];
-            wordGame.startPlay();
-            wordGame.numGuesses = 10;
-            document.getElementById("guessesRemaining").value = wordGame.numGuesses;
-            wordGame.guessedLetters = [];
-            document.getElementById("guessedLetters").value = wordGame.guessedLetters;
-            
+            wordGame.resetGame();            
         }
-    } 
-};
+    },
 
+    resetGame : function() {
+        wordGame.myUnderscoresArray = [];
+        wordGame.startPlay();
+        wordGame.numGuesses = 20;
+        document.getElementById("guessesRemaining").value = wordGame.numGuesses;
+        wordGame.guessedLetters = [];
+        document.getElementById("guessedLetters").value = wordGame.guessedLetters;
+    }
+};
 
 //assign a function to the onkeyup event.
 //this function will check to see if the user's keystroke is a letter
@@ -128,8 +130,14 @@ document.onkeyup = function(ev) {
                     wordGame.currentLetterGuessed = ev.key;
                     document.getElementById("guessedLetters").value = wordGame.guessedLetters;
                     wordGame.numGuesses--;
-                    document.getElementById("guessesRemaining").value = wordGame.numGuesses;
-                    
+                    //check if guesses left less than 0
+                    if (wordGame.numGuesses < 0) {
+                        alert('you lose');
+                        wordGame.resetGame();
+                    }
+                    else {
+                        document.getElementById("guessesRemaining").value = wordGame.numGuesses;
+                    }
                     //loop through word to search for instances of guessed letter
                     for (var i = 0; i < wordGame.myWord.length; i++) {
                         if (wordGame.currentLetterGuessed === wordGame.myWord[i]) {
