@@ -22,6 +22,7 @@ var wordGame = {
     myWord : '',
     numKeyPresses : 0,
     myUnderscoresArray: [],
+    playAgain : null,
 
     //methods
 
@@ -74,14 +75,20 @@ var wordGame = {
         }
         if (isWinner === true) {
             alert("congratulations");
-            wordGame.resetGame();            
+            this.numKeyPresses = 0;
+            document.getElementById("myLabel").value = "Do you want to play again?\nPress any key to continue";
+
+            
         }
+        
     },
 
     resetGame : function() {
         wordGame.myUnderscoresArray = [];
         wordGame.startPlay();
-        wordGame.numGuesses = 20;
+        wordGame.numGuesses = 15
+        
+        ;
         document.getElementById("guessesRemaining").value = wordGame.numGuesses;
         wordGame.guessedLetters = [];
         document.getElementById("guessedLetters").value = wordGame.guessedLetters;
@@ -103,7 +110,7 @@ document.onkeyup = function(ev) {
    
     //check if first key press after page load/reload
     if (wordGame.numKeyPresses === 0) {
-        wordGame.startPlay();
+        wordGame.resetGame();
         wordGame.numKeyPresses++;
     }
     //not the first key press since load/reload
@@ -131,7 +138,7 @@ document.onkeyup = function(ev) {
                     document.getElementById("guessedLetters").value = wordGame.guessedLetters;
                     wordGame.numGuesses--;
                     //check if guesses left less than 0
-                    if (wordGame.numGuesses < 0) {
+                    if (wordGame.numGuesses <= 0) {
                         alert('you lose');
                         wordGame.resetGame();
                     }
