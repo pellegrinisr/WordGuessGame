@@ -10,6 +10,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12 text-center">
+               <img class="headderPic" src="assets/images/HS_headder200px.jpg">
                 <h1>Hangman</h1>
             </div>
         </div>
@@ -20,24 +21,34 @@
                     <div class="col-sm-6">
                         <img class="myImage" src="https://static.wixstatic.com/media/0fc0f7_3b3967ad38134a909cfa93da54e02115~mv2_d_2464_1640_s_2.jpg">
                     </div>
-                    <div class="col-sm-6 text-center">
-                        <p>This is one column</p>
+                    <div class="col-sm-6 rightCol">
                         <div class="form-group">
-                            <label id="myLabel">Push Any Key To Get Started</label><br>
-                            <label for="numWins">Wins</label><br>
-                            <input type="text" class="form-control" id="numWins" readonly><br>
-                            <label for="numLosses">Losses</label><br>
-                            <input type="text" class="form-control" id="numLosses" readonly><br>
-                            <label for="currentWord">Current Word</label><br>
-                            <input type="text" class="form-control" id="currentWord" readonly><br>
-                            <label for="guessesRemaining">Number of Guesses Remaining</label><br>
-                            <input type="text" class="form-control" id="guessesRemaining" readonly><br>
+                            <div class="row">
+                               <div class="col-sm-12 text-center">
+                                    <label id="myLabel">Push Any Key To Get Started</label>
+                               </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="numWins">Wins</label>
+                                    <input type="text" class="form-control" id="numWins" readonly>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="numLosses">Losses</label>
+                                    <input type="text" class="form-control" id="numLosses" readonly>
+                                </div>
+                            </div>
+                            <label for="currentWord">Current Word</label>
+                            <input type="text" class="form-control" id="currentWord" readonly>
+                            <label for="guessesRemaining">Number of Guesses Remaining</label>
+                            <input type="text" class="form-control" id="guessesRemaining" readonly>
                             <label for="guessedLetters">Letters Already Guessed</label><br>
                             <input type="text" class="form-control" id="guessedLetters" readonly><br>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col-sm-2"></div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
