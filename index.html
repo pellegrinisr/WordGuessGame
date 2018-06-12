@@ -3,20 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-12 text-center">
+            <div class="col-sm-2 margin"></div>
+            <div class="col-sm-8">
                <img class="headderPic" src="assets/images/HS_headder200px.jpg">
                 <h1>Hangman</h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-8">
                 <div class="row">
                     <div class="col-sm-6">
                         <img class="myImage" src="https://static.wixstatic.com/media/0fc0f7_3b3967ad38134a909cfa93da54e02115~mv2_d_2464_1640_s_2.jpg">
@@ -24,9 +21,9 @@
                     <div class="col-sm-6 rightCol">
                         <div class="form-group">
                             <div class="row">
-                               <div class="col-sm-12 text-center">
+                                <div class="col-sm-12 text-center">
                                     <label id="myLabel">Push Any Key To Get Started</label>
-                               </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
@@ -38,17 +35,27 @@
                                     <input type="text" class="form-control" id="numLosses" readonly>
                                 </div>
                             </div>
-                            <label for="currentWord">Current Word</label>
-                            <input type="text" class="form-control" id="currentWord" readonly>
-                            <label for="guessesRemaining">Number of Guesses Remaining</label>
-                            <input type="text" class="form-control" id="guessesRemaining" readonly>
-                            <label for="guessedLetters">Letters Already Guessed</label><br>
-                            <input type="text" class="form-control" id="guessedLetters" readonly><br>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="currentWord">Current Word</label>
+                                    <input type="text" class="form-control" id="currentWord" readonly>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="guessesRemaining">Number of Guesses Remaining</label>
+                                    <input type="text" class="form-control" id="guessesRemaining" readonly>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="guessedLetters">Letters Already Guessed</label>
+                                    <input type="text" class="form-control" id="guessedLetters" readonly>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-2"></div>
+            <div class="col-sm-2 margin"></div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
