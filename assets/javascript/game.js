@@ -88,7 +88,10 @@ var wordGame = {
             }
         }
         if (isWinner === true) {
-            alert("congratulations");
+            var audioElement = document.createElement("audio");
+            audioElement.setAttribute("src", "assets/sounds/applause.wav");
+            audioElement.play();
+            //alert("congratulations");
             this.numKeyPresses = 0;
             this.numWins++;
             $("#numWins").val(this.numWins);
@@ -109,7 +112,7 @@ var wordGame = {
         //document.getElementById("guessesRemaining").value = wordGame.numGuesses;
         wordGame.guessedLetters = [];
         document.getElementById("guessedLetters").value = wordGame.guessedLetters;
-        $("#myLabel").text("Do you want to play again?\nPress any key to continue.").css("display", 'block');
+        
     }   
 };
 
@@ -159,10 +162,15 @@ document.onkeyup = function(ev) {
                     wordGame.numGuesses--;
                     //check if guesses left less than 0
                     if (wordGame.numGuesses <= 0) {
-                        alert('you lose');
-                        this.numLosses++;
-                        $("numLosses").val(this.numLosses);
-                        wordGame.resetGame();
+                        var audioElement = document.createElement("audio");
+                        audioElement.setAttribute("src", "assets/sounds/boo.wav");
+                        wordGame.numLosses++;
+                        $("#numLosses").val(wordGame.numLosses); 
+                        audioElement.play();
+                        $("#myLabel").text("Do you want to play again?\nPress any key to continue.").css("display", 'block');
+                        wordGame.numKeyPresses = 0;
+                        //alert('you lose');
+                       // wordGame.resetGame();
                     }
                     else {
                         $("#guessesRemaining").val(wordGame.numGuesses);
@@ -173,8 +181,7 @@ document.onkeyup = function(ev) {
                         if (wordGame.currentLetterGuessed === wordGame.myWord[i]) {
                             wordGame.searchWord();
                             wordGame.checkIfWon();
-                        }
-                        
+                        }  
                     }
                 }
             }
