@@ -7,9 +7,6 @@
 //the same letter again.
 //the program will keep track of # of wins and # of games played.
 
-
-var indexArray = [];
-
 //object to represent word game
 var wordGame = {
     //properties
@@ -24,6 +21,7 @@ var wordGame = {
     numKeyPresses : 0,
     myUnderscoresArray: [],
     playAgain : null,
+    //imgArray : [],
 
     //methods
 
@@ -65,11 +63,21 @@ var wordGame = {
     //if the letter is found, change the corresponding index in 
     //the array of underscores.
     searchWord : function() {
+       // alert("search word function called"); 
+        var isFound = false;
         for (var i = 0; i < wordGame.myWord.length; i++) {
             if (wordGame.currentLetterGuessed === wordGame.myWord[i]) {
                 wordGame.myUnderscoresArray[i] = wordGame.currentLetterGuessed;
+                isFound = true;
+               // alert(isFound);
             }
         }
+      /*  if (isFound === false) {
+            alert("entered the isFound if statemet");
+            debugger;
+            this.numGuesses--;
+            $("#guessesRemaining").val(this.numGuesses);
+        }  */
         //document.getElementById("currentWord").value = wordGame.myUnderscoresArray.toString().replace(/,/g, ' ');
         $("#currentWord").val(wordGame.myUnderscoresArray.join(' '));
     },
@@ -111,9 +119,8 @@ var wordGame = {
         $("#guessesRemaining").val(wordGame.numGuesses);
         //document.getElementById("guessesRemaining").value = wordGame.numGuesses;
         wordGame.guessedLetters = [];
-        document.getElementById("guessedLetters").value = wordGame.guessedLetters;
-        
-    }   
+        document.getElementById("guessedLetters").value = wordGame.guessedLetters;   
+    }
 };
 
 //assign a function to the onkeyup event.
@@ -158,7 +165,6 @@ document.onkeyup = function(ev) {
                     wordGame.guessedLetters.push(ev.key);
                     wordGame.currentLetterGuessed = ev.key;
                     $("#guessedLetters").val(wordGame.guessedLetters);
-                    //document.getElementById("guessedLetters").value = wordGame.guessedLetters;
                     wordGame.numGuesses--;
                     //check if guesses left less than 0
                     if (wordGame.numGuesses <= 0) {
@@ -169,12 +175,11 @@ document.onkeyup = function(ev) {
                         audioElement.play();
                         $("#myLabel").text("Do you want to play again?\nPress any key to continue.").css("display", 'block');
                         wordGame.numKeyPresses = 0;
-                        //alert('you lose');
                        // wordGame.resetGame();
                     }
-                    else {
+                    //player still has guesses remaining
+                    else {                      
                         $("#guessesRemaining").val(wordGame.numGuesses);
-                        //document.getElementById("guessesRemaining").value = wordGame.numGuesses;
                     }
                     //loop through word to search for instances of guessed letter
                     for (var i = 0; i < wordGame.myWord.length; i++) {
