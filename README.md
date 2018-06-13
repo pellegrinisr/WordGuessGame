@@ -34,13 +34,12 @@ Open the index.html file in your browser and experiment with the game.
 
 ## Deployment
 
-Deploying this project on a live system is 
+Deploying this project on a live system is straightforward as it is only a simple javascript application.  Simply copy all of the project folders to your web server.
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [JQuery](http://jquery.com) - JavaScript Library
+* [Bootstrap] (http://getbootstrap.com) - CSS Framework
 
 ## Contributing
 
