@@ -1,9 +1,7 @@
 .myImage {
     width: 100%;
     margin-top: 6%;
-}
-body {
-    background-color: lightyellow;
+    border: 1px solid #777777;
 }
 h1 {
     font-family: 'Lobster', cursive;
@@ -14,7 +12,7 @@ h1 {
     z-index: 100;
 }
 #myLabel {
-    color: blue;
+    color: white;
     font-weight: bold;
 }
 .row {
@@ -24,9 +22,28 @@ h1 {
     margin-left: auto;
     margin-right: auto;
     display: block;
+    border: 1px solid #777777;
 }
-.margin {
-    background-image: url("../images/palmTreesScaled.png");
-    background-repeat: repeat-y;
-    
+h3 {
+    font-family: 'Open Sans', sans-serif;
+}
+.marginLeft h3 { 
+    color: white;
+    font-size: 3em;
+}
+.container-fluid {
+    height: 100%;
+    position: absolute;
+    background: linear-gradient(to bottom right,red, orange, yellow);
+    background-repeat: no-repeat;
+}
+.marginRight {
+    align-self: flex-end;
+}
+.marginRight h3 {
+    color: black;
+}
+.rightCol {
+    border: 1px solid #777777;
+    margin-top: 3%;
 }
